@@ -26,7 +26,10 @@ class App extends Component {
     const authedMsg = () => {
       if (this.state.authed) {
         return (
-        <h3>You are authed!!!</h3>
+          <div>
+            <h3>You are authed!!!</h3>
+            <button className="btn btn-success">success</button>
+          </div>
         );
       }
       return '';
@@ -35,7 +38,6 @@ class App extends Component {
     return (
       <div className="App">
         <MyNav login={firebaeAuth.login} logout={firebaeAuth.signOut} authed={this.state.authed}/>
-        <button className="btn btn-success">success</button>
         {authedMsg()}
       </div>
     );

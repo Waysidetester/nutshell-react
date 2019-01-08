@@ -36,7 +36,10 @@ class MyNav extends React.Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              <NavItem onClick={this.props.login}>
+              <NavItem
+              className="selector"
+              onClick={this.props.login}
+              >
                 <NavLink>Login With Google</NavLink>
               </NavItem>
             </Nav>
@@ -53,8 +56,11 @@ class MyNav extends React.Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink onClick={this.props.logout}>Sign Out</NavLink>
+              <NavItem
+              className="selector"
+              onClick={this.props.logout}
+              >
+                <NavLink>Sign Out</NavLink>
               </NavItem>
             </Nav>
           </Collapse>
