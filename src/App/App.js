@@ -12,7 +12,9 @@ class App extends Component {
   }
 
   componentDidMount() {
+    // this initiates the firebase application/methods
     initFirebase();
+    // this checks the users login on page load and sets the state as such
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({ authed: true });
@@ -22,8 +24,14 @@ class App extends Component {
     });
   }
 
+  componentWillUnmount() {
+    // this removes the login checker when the component unmounts
+    this.removeListener();
+  }
+
   render() {
     const authedMsg = () => {
+      // this will only display if the user is authenticated
       if (this.state.authed) {
         return (
           <div>
@@ -37,7 +45,11 @@ class App extends Component {
 
     return (
       <div className="App">
-        <MyNav login={firebaeAuth.login} logout={firebaeAuth.signOut} authed={this.state.authed}/>
+        <MyNav
+        login={firebaeAuth.login}
+        logout={firebaeAuth.signOut}
+        authed={this.state.authed}
+        />
         {authedMsg()}
       </div>
     );
