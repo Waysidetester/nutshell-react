@@ -44,19 +44,19 @@ class MyNav extends React.Component {
         return (
         <Nav navbar>
           <NavItem>
-            <NavLink tag={RRNavLink} to='/friends'>Friends</NavLink>
+            <NavLink tag={RRNavLink} to='/friends'><i className="fas fa-user-friends fa-2x"></i></NavLink>
           </NavItem>
           <NavItem>
-            <NavLink tag={RRNavLink} to='/events'>Events</NavLink>
+            <NavLink tag={RRNavLink} to='/events'><i className="far fa-calendar-alt fa-2x"></i></NavLink>
           </NavItem>
           <NavItem>
-            <NavLink tag={RRNavLink} to='/articles'>Articles</NavLink>
+            <NavLink tag={RRNavLink} to='/articles'><i className="fas fa-newspaper fa-2x"></i></NavLink>
           </NavItem>
           <NavItem>
-            <NavLink tag={RRNavLink} to='/messages'>Messages</NavLink>
+            <NavLink tag={RRNavLink} to='/messages'><i className="fas fa-comments fa-2x"></i></NavLink>
           </NavItem>
           <NavItem>
-            <NavLink tag={RRNavLink} to='/weather'>Weather</NavLink>
+            <NavLink tag={RRNavLink} to='/weather'><i className="fas fa-bolt fa-2x"></i></NavLink>
           </NavItem>
         </Nav>
         );
