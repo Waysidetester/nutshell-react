@@ -4,7 +4,9 @@ import './articles.scss';
 class Articles extends React.Component {
   render() {
     return (
-    <div>Articles</div>
+    <div>
+      <p>Articles</p>
+    </div>
     );
   }
 }

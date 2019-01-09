@@ -9,13 +9,7 @@ import './auth.scss';
 class Auth extends React.Component {
   authenticate = (e) => {
     e.preventDefault();
-    fbAuth.login()
-      .then(() => {
-        this.props.history.push('/home');
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    fbAuth.login();
   }
 
   render() {

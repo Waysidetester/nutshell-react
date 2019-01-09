@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { NavLink as RRNavLink } from 'react-router-dom';
 import {
   Collapse,
   Navbar,
@@ -38,6 +39,31 @@ class MyNav extends React.Component {
   }
 
   render() {
+    const buildNavbar = () => {
+      if (this.props.authed) {
+        return (
+        <Nav navbar>
+          <NavItem>
+            <NavLink tag={RRNavLink} to='/friends'>Friends</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink tag={RRNavLink} to='/events'>Events</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink tag={RRNavLink} to='/articles'>Articles</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink tag={RRNavLink} to='/messages'>Messages</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink tag={RRNavLink} to='/weather'>Weather</NavLink>
+          </NavItem>
+        </Nav>
+        );
+      }
+      return (<Nav className='ml-auto' navbar />);
+    };
+
     // this loads if user is not logged in
     if (!this.props.authed) {
       return (
@@ -64,6 +90,7 @@ class MyNav extends React.Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
+            {buildNavbar()}
               <NavItem
               className="selector"
               onClick={this.props.logout}

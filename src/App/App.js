@@ -36,6 +36,7 @@ const PrivateRoute = ({ component: Component, authed, ...rest }) => {
 class App extends React.Component {
   state = {
     authed: false,
+    pendingUser: true,
   }
 
   componentDidMount() {
@@ -44,9 +45,9 @@ class App extends React.Component {
     // this checks the users login on page load and sets the state as such
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.setState({ authed: true });
+        this.setState({ authed: true, pendingUser: false });
       } else {
-        this.setState({ authed: false });
+        this.setState({ authed: false, pendingUser: false });
       }
     });
   }
@@ -57,6 +58,10 @@ class App extends React.Component {
   }
 
   render() {
+    if (this.state.pendingUser) {
+      return null;
+    }
+
     return (
       <div className="App">
         <BrowserRouter>
@@ -66,17 +71,19 @@ class App extends React.Component {
             logout={firebaeAuth.signOut}
             authed={this.state.authed}
             />
-            <div className='row'>
-              <Switch>
-                <PublicRoute path='/auth' component={Auth} authed={this.state.authed}/>
-                <PrivateRoute path='/friends' component={Friends} authed={this.state.authed} />
-                <PrivateRoute path='/weather' component={Weather} authed={this.state.authed} />
-                <PrivateRoute path='/events' component={Events} authed={this.state.authed} />
-                <PrivateRoute path='/messages' component={Messages} authed={this.state.authed} />
-                <PrivateRoute path='/articles' component={Articles} authed={this.state.authed} />
-                <PrivateRoute path='/home' component={Home} authed={this.state.authed} />
-                <PrivateRoute path='/' exact component={Home} authed={this.state.authed} />
-              </Switch>
+            <div className='container'>
+              <div className='row'>
+                <Switch>
+                  <PublicRoute path='/auth' component={Auth} authed={this.state.authed}/>
+                  <PrivateRoute path='/friends' component={Friends} authed={this.state.authed} />
+                  <PrivateRoute path='/weather' component={Weather} authed={this.state.authed} />
+                  <PrivateRoute path='/events' component={Events} authed={this.state.authed} />
+                  <PrivateRoute path='/messages' component={Messages} authed={this.state.authed} />
+                  <PrivateRoute path='/articles' component={Articles} authed={this.state.authed} />
+                  <PrivateRoute path='/home' component={Home} authed={this.state.authed} />
+                  <PrivateRoute path='/' exact component={Home} authed={this.state.authed} />
+                </Switch>
+              </div>
             </div>
           </React.Fragment>
         </BrowserRouter>
