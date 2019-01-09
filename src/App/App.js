@@ -1,10 +1,32 @@
 import React, { Component } from 'react';
 import firebase from 'firebase/app';
+import {
+  BrowserRouter,
+  Route,
+  Redirect,
+  Switch,
+} from 'react-router-dom';
 import 'firebase/auth';
+import Auth from '../components/pages/auth/auth';
+import Home from '../components/pages/home/home';
 import initFirebase from '../helpers/initFirebase';
 import MyNav from '../components/myNav/myNav';
 import firebaeAuth from '../helpers/firebaeAuth';
 import './App.scss';
+
+const PublicRoute = ({ component: Component, authed, ...rest }) => {
+  const routeChecker = props => (
+    !authed ? (<Component { ...props }/>) : (<Redirect to={{ pathname: '/home', state: { from: props.location } }}/>)
+  );
+  return <Route {... rest} render={props => routeChecker(props)}/>;
+};
+
+const PrivateRoute = ({ component: Component, authed, ...rest }) => {
+  const routeChecker = props => (
+    authed ? (<Component { ...props }/>) : (<Redirect to={{ pathname: '/auth', state: { from: props.location } }}/>)
+  );
+  return <Route {... rest} render={props => routeChecker(props)}/>;
+};
 
 class App extends Component {
   state = {
@@ -30,27 +52,24 @@ class App extends Component {
   }
 
   render() {
-    const authedMsg = () => {
-      // this will only display if the user is authenticated
-      if (this.state.authed) {
-        return (
-          <div>
-            <h3>You are authed!!!</h3>
-            <button className="btn btn-success">success</button>
-          </div>
-        );
-      }
-      return '';
-    };
-
     return (
       <div className="App">
-        <MyNav
-        login={firebaeAuth.login}
-        logout={firebaeAuth.signOut}
-        authed={this.state.authed}
-        />
-        {authedMsg()}
+        <BrowserRouter>
+          <React.Fragment>
+            <MyNav
+            login={firebaeAuth.login}
+            logout={firebaeAuth.signOut}
+            authed={this.state.authed}
+            />
+            <div className='row'>
+              <Switch>
+                <PrivateRoute path='/' exact component={Home} authed={this.state.authed} />
+                <PrivateRoute path='/home' component={Home} authed={this.state.authed} />
+                <PublicRoute path='/auth' component={Auth} authed={this.state.authed}/>
+              </Switch>
+            </div>
+          </React.Fragment>
+        </BrowserRouter>
       </div>
     );
   }

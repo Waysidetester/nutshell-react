@@ -9,6 +9,7 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
+import Auth from '../pages/auth/auth';
 import 'firebase/auth';
 import './myNav.scss';
 
@@ -46,12 +47,8 @@ class MyNav extends React.Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              <NavItem
-              className="selector"
-              onClick={this.props.login}
-              >
-                <NavLink>Login With Google</NavLink>
-              </NavItem>
+              <Auth
+              login={this.props.login}/>
             </Nav>
           </Collapse>
         </Navbar>
