@@ -3,11 +3,13 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
+import fbAuth from '../../../helpers/firebaeAuth';
 import './auth.scss';
 
 class Auth extends React.Component {
-  authenticate = () => {
-    this.props.login()
+  authenticate = (e) => {
+    e.preventDefault();
+    fbAuth.login()
       .then(() => {
         this.props.history.push('/home');
       })
@@ -20,7 +22,7 @@ class Auth extends React.Component {
     return (
       <NavItem
       className="selector"
-      onClick={this.props.login}
+      onClick={this.authenticate}
       >
         <NavLink>Login With Google</NavLink>
       </NavItem>

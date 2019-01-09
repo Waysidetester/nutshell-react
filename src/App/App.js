@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import firebase from 'firebase/app';
 import {
   BrowserRouter,
@@ -9,6 +9,11 @@ import {
 import 'firebase/auth';
 import Auth from '../components/pages/auth/auth';
 import Home from '../components/pages/home/home';
+import Articles from '../components/pages/articles/articles';
+import Events from '../components/pages/events/events';
+import Friends from '../components/pages/friends/friends';
+import Messages from '../components/pages/messages/messages';
+import Weather from '../components/pages/weather/weather';
 import initFirebase from '../helpers/initFirebase';
 import MyNav from '../components/myNav/myNav';
 import firebaeAuth from '../helpers/firebaeAuth';
@@ -28,7 +33,7 @@ const PrivateRoute = ({ component: Component, authed, ...rest }) => {
   return <Route {... rest} render={props => routeChecker(props)}/>;
 };
 
-class App extends Component {
+class App extends React.Component {
   state = {
     authed: false,
   }
@@ -63,9 +68,14 @@ class App extends Component {
             />
             <div className='row'>
               <Switch>
-                <PrivateRoute path='/' exact component={Home} authed={this.state.authed} />
-                <PrivateRoute path='/home' component={Home} authed={this.state.authed} />
                 <PublicRoute path='/auth' component={Auth} authed={this.state.authed}/>
+                <PrivateRoute path='/friends' component={Friends} authed={this.state.authed} />
+                <PrivateRoute path='/weather' component={Weather} authed={this.state.authed} />
+                <PrivateRoute path='/events' component={Events} authed={this.state.authed} />
+                <PrivateRoute path='/messages' component={Messages} authed={this.state.authed} />
+                <PrivateRoute path='/articles' component={Articles} authed={this.state.authed} />
+                <PrivateRoute path='/home' component={Home} authed={this.state.authed} />
+                <PrivateRoute path='/' exact component={Home} authed={this.state.authed} />
               </Switch>
             </div>
           </React.Fragment>
