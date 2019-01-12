@@ -20,15 +20,7 @@ const getAllArticles = () => new Promise((resolve, reject) => {
       reject(error);
     });
 });
-const deleteArticle = articleId => new Promise((res, rej) => {
-  axios.delete(`${firebaseUrl}/articles/${articleId}.json`)
-    .then((data) => {
-      res(data);
-    })
-    .catch((err) => {
-      rej(err);
-    });
-});
+const deleteArticle = articleId => axios.delete(`${firebaseUrl}/articles/${articleId}.json`);
 
 const postRequest = newArticle => axios.post(`${firebaseUrl}/articles.json`, newArticle);
 

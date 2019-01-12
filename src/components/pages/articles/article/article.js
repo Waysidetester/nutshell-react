@@ -35,10 +35,18 @@ class Article extends React.Component {
   render() {
     // get UID
     const currentUid = firebase.auth().currentUser.uid;
+    const deleteArticleCall = () => {
+      articleRequest.deleteArticle(this.props.id)
+        .then(() => {
+          this.props.updateArticles();
+        })
+        .catch((err) => {
+          console.error('deleting article error', err);
+        });
+    };
 
     // checks if UID matched article UID
     if (this.state.article.uid === currentUid) {
-
       // checks if user wants to edit their article
       if (this.state.editing) {
         // builds article in editing state
@@ -108,17 +116,8 @@ class Article extends React.Component {
               {/* deletes article from database */}
               <button
               className='btn btn-danger'
-              onClick={
-                () => {
-                  articleRequest.deleteArticle(this.props.id)
-                    .then(() => {
-                      this.props.updateArticles();
-                    })
-                    .catch((err) => {
-                      console.error('deleting article error', err);
-                    });
-                }
-              }>Delete</button>
+              onClick={deleteArticleCall}
+              >Delete</button>
             </div>
           </div>
         </div>
