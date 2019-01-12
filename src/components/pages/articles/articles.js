@@ -11,13 +11,21 @@ class Articles extends React.Component {
     shownArticles: [],
   }
   
-  componentDidMount() {
+  getArticles = () => {
     const uid = firebase.auth().currentUser.uid;
     smashRequest.getArticlesFromMeAndFriends(uid)
       .then((data) => {
         this.setState({ shownArticles: data });
       })
       .catch(err => console.error(err));
+  };
+
+  updateArticles = () => {
+    this.getArticles();
+  }
+
+  componentDidMount() {
+    this.getArticles();
   }
 
   render() {
@@ -29,6 +37,7 @@ class Articles extends React.Component {
       articleTitle={singleArticle.title}
       articleSynopsis={singleArticle.synopsis}
       articleUrl={singleArticle.url}
+      updateArticles={this.updateArticles}
       />);
     });
     return (
