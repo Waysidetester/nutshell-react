@@ -10,23 +10,34 @@ class Articles extends React.Component {
   state = {
     shownArticles: [],
   }
-
-  componentDidMount() {
+  
+  getArticles = () => {
     const uid = firebase.auth().currentUser.uid;
     smashRequest.getArticlesFromMeAndFriends(uid)
       .then((data) => {
         this.setState({ shownArticles: data });
       })
       .catch(err => console.error(err));
+  };
+
+  updateArticles = () => {
+    this.getArticles();
+  }
+
+  componentDidMount() {
+    this.getArticles();
   }
 
   render() {
     const articleBuilder = this.state.shownArticles.map((singleArticle) => {
       return (<Article
+      key={singleArticle.id}
+      articleUid={singleArticle.uid}
       id={singleArticle.id}
       articleTitle={singleArticle.title}
       articleSynopsis={singleArticle.synopsis}
       articleUrl={singleArticle.url}
+      updateArticles={this.updateArticles}
       />);
     });
     return (

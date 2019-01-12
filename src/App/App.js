@@ -7,6 +7,7 @@ import {
   Switch,
 } from 'react-router-dom';
 import 'firebase/auth';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Auth from '../components/pages/auth/auth';
 import Home from '../components/pages/home/home';
 import Articles from '../components/pages/articles/articles';
