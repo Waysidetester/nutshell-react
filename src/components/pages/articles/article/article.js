@@ -19,14 +19,20 @@ class Article extends React.Component {
     this.setState({ editing: true });
   }
 
-  render() {
-    const editFields = (input, e) => {
-      e.preventDefault();
-      const tempArticle = { ...this.state.newListing };
-      tempArticle[input] = e.target.value;
-      this.setState({ article: tempArticle });
-    };
+  editFields = (input, e) => {
+    e.preventDefault();
+    const tempArticle = { ...this.state.article };
+    tempArticle[input] = e.target.value;
+    this.setState({ article: tempArticle });
+  };
 
+  titleChange = e => this.editFields('title', e);
+
+  synopsisChange = e => this.editFields('synopsis', e);
+
+  urlChange = e => this.editFields('url', e);
+
+  render() {
     // get UID
     const currentUid = firebase.auth().currentUser.uid;
 
@@ -39,24 +45,42 @@ class Article extends React.Component {
         return (
           <div className='card'>
           <div className='card-body'>
-          
+
           {/* title input feild */}
           <div class='input-group mb-3'>
-            <input className='form-control' aria-label='Default' aria-describedby='inputGroup-sizing-default' value={this.state.article.title}/>
+            <input
+            className='form-control'
+            aria-label='Default'
+            aria-describedby='inputGroup-sizing-default'
+            value={this.state.article.title}
+            onChange={this.titleChange}
+            />
             <div class='input-group-prepend'>
               <span class='input-group-text' id='inputGroup-sizing-default'>Title</span>
             </div>
           </div>
           {/* synopsis input feild */}
           <div class='input-group mb-3'>
-            <input className='form-control' aria-label='Default' aria-describedby='inputGroup-sizing-default' value={this.state.article.synopsis}/>
+            <input
+            className='form-control'
+            aria-label='Default'
+            aria-describedby='inputGroup-sizing-default'
+            value={this.state.article.synopsis}
+            onChange={this.synopsisChange}
+            />
             <div class='input-group-prepend'>
               <span class='input-group-text' id='inputGroup-sizing-default'>Synopsis</span>
             </div>
           </div>
           {/* url input feild */}
           <div class='input-group mb-3'>
-            <input className='form-control' aria-label='Default' aria-describedby='inputGroup-sizing-default' value={this.state.article.url}/>
+            <input
+            className='form-control'
+            aria-label='Default'
+            aria-describedby='inputGroup-sizing-default'
+            value={this.state.article.url}
+            onChange={this.urlChange}
+            />
             <div class='input-group-prepend'>
               <span class='input-group-text' id='inputGroup-sizing-default'>URL</span>
             </div>
