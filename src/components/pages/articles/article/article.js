@@ -27,7 +27,7 @@ class Article extends React.Component {
                       console.error('deleting article error', err);
                     });
                 }
-              }>X</button>
+              }>Delete</button>
             </div>
           </div>
         </div>
