@@ -10,7 +10,7 @@ class Articles extends React.Component {
   state = {
     shownArticles: [],
   }
-
+  
   componentDidMount() {
     const uid = firebase.auth().currentUser.uid;
     smashRequest.getArticlesFromMeAndFriends(uid)
@@ -23,6 +23,8 @@ class Articles extends React.Component {
   render() {
     const articleBuilder = this.state.shownArticles.map((singleArticle) => {
       return (<Article
+      key={singleArticle.id}
+      articleUid={singleArticle.uid}
       id={singleArticle.id}
       articleTitle={singleArticle.title}
       articleSynopsis={singleArticle.synopsis}
