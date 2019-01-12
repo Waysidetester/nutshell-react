@@ -37,7 +37,7 @@ class Articles extends React.Component {
       articleSynopsis={singleArticle.synopsis}
       articleUrl={singleArticle.url}
       />);
-    })
+    });
     return (
     <div>
       <p>Articles</p>
