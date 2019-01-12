@@ -7,6 +7,16 @@ import './article.scss';
 class Article extends React.Component {
   render() {
     const currentUid = firebase.auth().currentUser.uid;
+    const deleteArticleCall = () => {
+      articleRequest.deleteArticle(this.props.id)
+        .then(() => {
+          this.props.updateArticles();
+        })
+        .catch((err) => {
+          console.error('deleting article error', err);
+        });
+    };
+    
     if (this.props.articleUid === currentUid) {
       return (
         <div className='card'>
@@ -17,17 +27,8 @@ class Article extends React.Component {
             <div>
               <button
               className='btn btn-danger'
-              onClick={
-                () => {
-                  articleRequest.deleteArticle(this.props.id)
-                    .then(() => {
-                      this.props.updateArticles();
-                    })
-                    .catch((err) => {
-                      console.error('deleting article error', err);
-                    });
-                }
-              }>Delete</button>
+              onClick={deleteArticleCall}
+              >Delete</button>
             </div>
           </div>
         </div>
