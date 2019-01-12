@@ -4,7 +4,6 @@ import './home.scss';
 class Home extends React.Component {
   changeView = (e) => {
     const view = e.currentTarget.id;
-    console.log(view);
     this.props.history.push(`/${view}`);
   }
 
