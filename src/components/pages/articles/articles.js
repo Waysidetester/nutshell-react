@@ -9,6 +9,7 @@ import './articles.scss';
 class Articles extends React.Component {
   state = {
     shownArticles: [],
+    adding: false,
   }
 
   getArticles = () => {
@@ -40,9 +41,52 @@ class Articles extends React.Component {
       updateArticles={this.updateArticles}
       />);
     });
+
+    if (this.state.adding) {
+      return (<div>
+        <div className='input-group mb-3'>
+          <input
+          className='form-control'
+          aria-label='Default'
+          aria-describedby='inputGroup-sizing-default'
+          value={this.state.article.title}
+          onChange={this.titleChange}
+          />
+          <div className='input-group-prepend'>
+            <span className='input-group-text' id='inputGroup-sizing-default'>Title</span>
+          </div>
+        </div>
+        <div className='input-group mb-3'>
+          <input
+          className='form-control'
+          aria-label='Default'
+          aria-describedby='inputGroup-sizing-default'
+          value={this.state.article.title}
+          onChange={this.titleChange}
+          />
+          <div className='input-group-prepend'>
+            <span className='input-group-text' id='inputGroup-sizing-default'>Title</span>
+          </div>
+        </div>
+        <div className='input-group mb-3'>
+          <input
+          className='form-control'
+          aria-label='Default'
+          aria-describedby='inputGroup-sizing-default'
+          value={this.state.article.title}
+          onChange={this.titleChange}
+          />
+          <div className='input-group-prepend'>
+            <span className='input-group-text' id='inputGroup-sizing-default'>Title</span>
+          </div>
+        </div>
+      </div>);
+    }
+
     return (
     <div>
       <p>Articles</p>
+      <button className='btn btn-outline-success'>Add Article</button>
       {articleBuilder}
     </div>
     );
