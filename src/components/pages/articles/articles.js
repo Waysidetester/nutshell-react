@@ -6,7 +6,7 @@ import Article from './article/article';
 import 'firebase/auth';
 import './articles.scss';
 
-let uid
+let uid;
 
 class Articles extends React.Component {
   state = {
