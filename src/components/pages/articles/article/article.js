@@ -92,7 +92,7 @@ class Article extends React.Component {
             onChange={this.titleChange}
             />
             <div className='input-group-prepend'>
-              <span className='input-group-text' id='inputGroup-sizing-default'>Title</span>
+              <span className='input-group-text'>Title</span>
             </div>
           </div>
           {/* synopsis input feild */}
@@ -105,7 +105,7 @@ class Article extends React.Component {
             onChange={this.synopsisChange}
             />
             <div className='input-group-prepend'>
-              <span className='input-group-text' id='inputGroup-sizing-default'>Synopsis</span>
+              <span className='input-group-text'>Synopsis</span>
             </div>
           </div>
           {/* url input feild */}
@@ -118,7 +118,7 @@ class Article extends React.Component {
             onChange={this.urlChange}
             />
             <div className='input-group-prepend'>
-              <span className='input-group-text' id='inputGroup-sizing-default'>URL</span>
+              <span className='input-group-text'>URL</span>
             </div>
           </div>
             <div>
