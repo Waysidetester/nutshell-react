@@ -15,6 +15,17 @@ class Article extends React.Component {
     editing: false,
   }
 
+  // ==================== Edit section =================
+
+  // checks validity of edited input
+  editValidator = () => {
+    let validUrl;
+    if (this.state.article.url.includes('http://') || this.state.article.url.includes('https://')) {
+      validUrl = true;
+    }
+    return validUrl;
+  }
+
   startEditing = () => {
     this.setState({ editing: true });
   }
@@ -26,11 +37,28 @@ class Article extends React.Component {
     this.setState({ article: tempArticle });
   };
 
+
   titleChange = e => this.editFields('title', e);
 
   synopsisChange = e => this.editFields('synopsis', e);
 
   urlChange = e => this.editFields('url', e);
+
+  completeEdit = (articleId, article) => {
+    articleRequest.updateArticle(articleId, article)
+      .then(() => {
+        this.props.updateArticles();
+      });
+    this.setState({ editing: false });
+  };
+
+  passEditValues = () => {
+    if (this.editValidator()) {
+      this.completeEdit(this.props.id, this.state.article);
+    }
+  }
+
+  // =================== End edit section ==============
 
   render() {
     // get UID
@@ -55,7 +83,7 @@ class Article extends React.Component {
           <div className='card-body'>
 
           {/* title input feild */}
-          <div class='input-group mb-3'>
+          <div className='input-group mb-3'>
             <input
             className='form-control'
             aria-label='Default'
@@ -63,12 +91,12 @@ class Article extends React.Component {
             value={this.state.article.title}
             onChange={this.titleChange}
             />
-            <div class='input-group-prepend'>
-              <span class='input-group-text' id='inputGroup-sizing-default'>Title</span>
+            <div className='input-group-prepend'>
+              <span className='input-group-text' id='inputGroup-sizing-default'>Title</span>
             </div>
           </div>
           {/* synopsis input feild */}
-          <div class='input-group mb-3'>
+          <div className='input-group mb-3'>
             <input
             className='form-control'
             aria-label='Default'
@@ -76,12 +104,12 @@ class Article extends React.Component {
             value={this.state.article.synopsis}
             onChange={this.synopsisChange}
             />
-            <div class='input-group-prepend'>
-              <span class='input-group-text' id='inputGroup-sizing-default'>Synopsis</span>
+            <div className='input-group-prepend'>
+              <span className='input-group-text' id='inputGroup-sizing-default'>Synopsis</span>
             </div>
           </div>
           {/* url input feild */}
-          <div class='input-group mb-3'>
+          <div className='input-group mb-3'>
             <input
             className='form-control'
             aria-label='Default'
@@ -89,12 +117,15 @@ class Article extends React.Component {
             value={this.state.article.url}
             onChange={this.urlChange}
             />
-            <div class='input-group-prepend'>
-              <span class='input-group-text' id='inputGroup-sizing-default'>URL</span>
+            <div className='input-group-prepend'>
+              <span className='input-group-text' id='inputGroup-sizing-default'>URL</span>
             </div>
           </div>
             <div>
-              <button className='btn btn-primary'>Update</button>
+              <button
+              className='btn btn-primary'
+              onClick={this.passEditValues}
+              >Update</button>
             </div>
           </div>
         </div>

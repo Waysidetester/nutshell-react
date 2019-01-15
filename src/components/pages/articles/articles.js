@@ -10,7 +10,7 @@ class Articles extends React.Component {
   state = {
     shownArticles: [],
   }
-  
+
   getArticles = () => {
     const uid = firebase.auth().currentUser.uid;
     smashRequest.getArticlesFromMeAndFriends(uid)
