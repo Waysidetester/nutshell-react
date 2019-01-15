@@ -6,8 +6,6 @@ import Article from './article/article';
 import 'firebase/auth';
 import './articles.scss';
 
-let uid;
-
 class Articles extends React.Component {
   state = {
     shownArticles: [],
@@ -19,6 +17,7 @@ class Articles extends React.Component {
   deactivateAddArticle = () => this.setState({ adding: false });
 
   getArticles = () => {
+    const uid = firebase.auth().currentUser.uid
     smashRequest.getArticlesFromMeAndFriends(uid)
       .then((data) => {
         this.setState({ shownArticles: data });
@@ -31,7 +30,6 @@ class Articles extends React.Component {
   }
 
   componentDidMount() {
-    uid = firebase.auth().currentUser.uid;
     this.getArticles();
   }
 
@@ -52,11 +50,11 @@ class Articles extends React.Component {
 
     const valueGetter = targetId => document.getElementById(targetId).value;
 
-    const newArticle = () => {
+    const submitNewArticle = () => {
       const newTitle = valueGetter('add-title');
       const newSynopsis = valueGetter('add-synopsis');
       const newUrl = valueGetter('add-url');
-      const newArtUid = uid;
+      const newArtUid = firebase.auth().currentUser.uid;
       const newArticleObject = {
         title: newTitle,
         synopsis: newSynopsis,
@@ -111,7 +109,7 @@ class Articles extends React.Component {
           </div>
           <button
       className='btn btn-outline-primary'
-      onClick={newArticle}
+      onClick={submitNewArticle}
       >Submit Article</button>
         </div>);
       }
